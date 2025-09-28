@@ -1,0 +1,138 @@
+# Test Spaced Repetition Language Learning API
+
+### 1. Obtener información general de la API
+GET http://127.0.0.1:8000/
+Accept: application/json
+
+### 2. Obtener un bloque de estudio de 20 palabras para un usuario
+GET http://127.0.0.1:8000/study-block/user123?limit=20
+Accept: application/json
+
+### 3. Obtener un bloque de estudio de 10 palabras para otro usuario
+GET http://127.0.0.1:8000/study-block/user456?limit=10
+Accept: application/json
+
+### 4. Enviar respuesta correcta (calidad 5) para palabra ID 1
+POST http://127.0.0.1:8000/submit-answer
+Content-Type: application/json
+
+{
+    "user_id": "user123",
+    "word_id": 1,
+    "quality": 5,
+    "response_time": 2.5
+}
+
+### 5. Enviar respuesta incorrecta (calidad 2) para palabra ID 2
+POST http://127.0.0.1:8000/submit-answer
+Content-Type: application/json
+
+{
+    "user_id": "user123",
+    "word_id": 2,
+    "quality": 2,
+    "response_time": 5.8
+}
+
+### 6. Enviar respuesta parcialmente correcta (calidad 4) para palabra ID 3
+POST http://127.0.0.1:8000/submit-answer
+Content-Type: application/json
+
+{
+    "user_id": "user123",
+    "word_id": 3,
+    "quality": 4,
+    "response_time": 3.2
+}
+
+### 7. Obtener progreso del usuario user123
+GET http://127.0.0.1:8000/progress/user123
+Accept: application/json
+
+### 8. Obtener progreso del usuario user456
+GET http://127.0.0.1:8000/progress/user456
+Accept: application/json
+
+### 9. Obtener información detallada de la palabra ID 1
+GET http://127.0.0.1:8000/word/1
+Accept: application/json
+
+### 10. Obtener información detallada de la palabra ID 50
+GET http://127.0.0.1:8000/word/50
+Accept: application/json
+
+### 11. Obtener estadísticas globales del sistema
+GET http://127.0.0.1:8000/stats
+Accept: application/json
+
+### 12. Simular sesión completa de estudio
+# Primero obtener bloque de estudio
+GET http://127.0.0.1:8000/study-block/user789?limit=5
+Accept: application/json
+
+### 13. Responder todas las palabras del bloque (simular respuestas variadas)
+POST http://127.0.0.1:8000/submit-answer
+Content-Type: application/json
+
+{
+    "user_id": "user789",
+    "word_id": 1,
+    "quality": 5,
+    "response_time": 1.8
+}
+
+### 14. Segunda respuesta
+POST http://127.0.0.1:8000/submit-answer
+Content-Type: application/json
+
+{
+    "user_id": "user789",
+    "word_id": 2,
+    "quality": 3,
+    "response_time": 4.2
+}
+
+### 15. Tercera respuesta
+POST http://127.0.0.1:8000/submit-answer
+Content-Type: application/json
+
+{
+    "user_id": "user789",
+    "word_id": 3,
+    "quality": 4,
+    "response_time": 2.9
+}
+
+### 16. Cuarta respuesta
+POST http://127.0.0.1:8000/submit-answer
+Content-Type: application/json
+
+{
+    "user_id": "user789",
+    "word_id": 4,
+    "quality": 2,
+    "response_time": 6.1
+}
+
+### 17. Quinta respuesta
+POST http://127.0.0.1:8000/submit-answer
+Content-Type: application/json
+
+{
+    "user_id": "user789",
+    "word_id": 5,
+    "quality": 5,
+    "response_time": 1.5
+}
+
+### 18. Verificar progreso después de la sesión
+GET http://127.0.0.1:8000/progress/user789
+Accept: application/json
+
+### 19. Obtener nuevo bloque de estudio (debería incluir palabras para repaso)
+GET http://127.0.0.1:8000/study-block/user789?limit=5
+Accept: application/json
+
+### 20. Ver estadísticas finales
+GET http://127.0.0.1:8000/stats
+Accept: application/json

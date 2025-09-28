@@ -1,0 +1,45 @@
+version: "3.8"
+
+services:
+  # Base de datos PostgreSQL
+  postgres:
+    image: postgres:15-alpine
+    container_name: spaced_repetition_postgres
+    environment:
+      POSTGRES_DB: spaced_repetition_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - spaced_repetition_network
+
+  # Aplicación FastAPI
+  app:
+    build: .
+    container_name: spaced_repetition_app
+    environment:
+      DATABASE_URL: postgresql://postgres:password@postgres:5432/spaced_repetition_db
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgres
+    volumes:
+      - .:/app
+    networks:
+      - spaced_repetition_network
+    command: >
+      sh -c "python init_simple.py && 
+             python -m uvicorn main:app --host 0.0.0.0 --port 8000 --reload"
+
+volumes:
+  postgres_data:
+
+networks:
+  spaced_repetition_network:
+    driver: bridge
+
+
