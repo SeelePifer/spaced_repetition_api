@@ -9,6 +9,7 @@ from tests.utils.test_helpers import TestDataFactory
 
 
 @pytest.mark.slow
+@pytest.mark.benchmark
 class TestPerformance:
     """Performance tests for the API"""
     
@@ -115,6 +116,7 @@ class TestPerformance:
 
 
 @pytest.mark.slow
+@pytest.mark.benchmark
 class TestDomainPerformance:
     """Performance tests for domain entities"""
     
@@ -200,6 +202,7 @@ class TestDomainPerformance:
 
 
 @pytest.mark.slow
+@pytest.mark.benchmark
 class TestMemoryUsage:
     """Tests for memory usage patterns"""
     
