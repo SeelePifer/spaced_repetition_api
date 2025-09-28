@@ -5,7 +5,10 @@ from ..dto.study_dto import StudySessionDto, StudyBlockDto, StudySessionResponse
 
 class Command(ABC):
     """Base class for all commands"""
-    pass
+    
+    @abstractmethod
+    def __init__(self):
+        pass
 
 
 @dataclass

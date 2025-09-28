@@ -11,7 +11,10 @@ from ..dto.study_dto import (
 
 class Query(ABC):
     """Base class for all queries"""
-    pass
+    
+    @abstractmethod
+    def __init__(self):
+        pass
 
 
 @dataclass

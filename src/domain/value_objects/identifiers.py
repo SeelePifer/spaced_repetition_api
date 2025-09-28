@@ -9,9 +9,9 @@ class UserId:
     
     def __post_init__(self):
         if not self.value or not self.value.strip():
-            raise ValueError("El ID de usuario no puede estar vacío")
+            raise ValueError("User ID cannot be empty")
         if len(self.value) < 3:
-            raise ValueError("El ID de usuario debe tener al menos 3 caracteres")
+            raise ValueError("User ID must have at least 3 characters")
 
 
 @dataclass(frozen=True)
@@ -21,6 +21,6 @@ class WordId:
     
     def __post_init__(self):
         if not isinstance(self.value, int):
-            raise ValueError("El ID de palabra debe ser un entero")
+            raise ValueError("Word ID must be an integer")
         if self.value <= 0:
-            raise ValueError("El ID de palabra debe ser positivo")
+            raise ValueError("Word ID must be positive")
