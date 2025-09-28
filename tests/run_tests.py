@@ -1,9 +1,6 @@
-"""
-Test runner and configuration scripts
-"""
 #!/usr/bin/env python3
 """
-Test runner for the Spaced Repetition API
+Test runner and configuration scripts
 """
 import os
 import sys
@@ -57,8 +54,10 @@ def run_linting():
     
     # Check if flake8 is available
     try:
-        result = subprocess.run(["python", "-m", "flake8", "src/", "tests/"], 
-                              capture_output=True, text=True)
+        result = subprocess.run(
+            ["python", "-m", "flake8", "src/", "tests/"],
+            capture_output=True, text=True
+        )
         if result.returncode == 0:
             print("✅ Linting passed")
         else:
@@ -76,8 +75,10 @@ def run_type_checking():
     print("Running type checking...")
     
     try:
-        result = subprocess.run(["python", "-m", "mypy", "src/"], 
-                              capture_output=True, text=True)
+        result = subprocess.run(
+            ["python", "-m", "mypy", "src/"],
+            capture_output=True, text=True
+        )
         if result.returncode == 0:
             print("✅ Type checking passed")
         else:

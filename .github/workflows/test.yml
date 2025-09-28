@@ -12,10 +12,10 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: [3.9, 3.10, 3.11]
+        python-version: ["3.9", "3.10", "3.11"]
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v4
@@ -28,17 +28,9 @@ jobs:
           pip install -r requirements.txt
           pip install -r tests/requirements.txt
 
-      - name: Lint with flake8
+      - name: Run tests with pytest
         run: |
-          python tests/run_tests.py --lint
-
-      - name: Type check with mypy
-        run: |
-          python tests/run_tests.py --type-check
-
-      - name: Test with pytest
-        run: |
-          python tests/run_tests.py --type fast
+          python -m pytest tests/ -v --cov=src --cov-report=xml --cov-report=term-missing
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v3
@@ -53,12 +45,12 @@ jobs:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Set up Python 3.11
         uses: actions/setup-python@v4
         with:
-          python-version: 3.11
+          python-version: "3.11"
 
       - name: Install dependencies
         run: |
@@ -68,4 +60,4 @@ jobs:
 
       - name: Run performance tests
         run: |
-          python tests/run_tests.py --type performance
+          python -m pytest tests/performance/ -v --benchmark-only

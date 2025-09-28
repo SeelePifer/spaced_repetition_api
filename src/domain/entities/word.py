@@ -66,8 +66,8 @@ class UserProgress:
                 self.interval = int(self.interval * self.ease_factor)
             
             # Update ease_factor based on quality
-            self.ease_factor = max(1.3, 
-                self.ease_factor + (0.1 - (5 - quality.value) * (0.08 + (5 - quality.value) * 0.02)))
+            self.ease_factor = max(1.3,
+                                   self.ease_factor + (0.1 - (5 - quality.value) * (0.08 + (5 - quality.value) * 0.02)))
         
         # Update dates
         self.next_review = datetime.now() + timedelta(days=self.interval)
